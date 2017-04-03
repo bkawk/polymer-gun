@@ -14,7 +14,7 @@
         display: block;
       }
     </style>
-    <h2>Hello {{prop1}}</h2>
+    <h1>{{data}}</h1>
   </template>
 
   <script>
@@ -22,46 +22,45 @@
       static get is() { return 'polymer-gun'; }
       static get properties() {
         return {
-          gun: {
-            type: Object,
-            notify: true
-          },
           url:{
             type: String,
             observer: '_sync'
           },
           collection:{
             type: String,
-            value: 'test1/',
+            notify: true,
             observer: '_sync'
           },
           path:{
             type: String,
-            value: 'test2/',
+            notify: true,
             observer: '_sync'
           },
           data:{
             type: String,
-            observer: '_sync'
+            notify: true,
+            observer: '_check'
           }
-
         };
       }
 
-      _sync(){
-        this.data = new Date().getTime()
+      _check(){
         this.gun = Gun();
         if(this.collection && this.path){
-          if(this.data){
-            this.gun.get(this.collection).path(this.path).put(this.data);
-          }
           this.gun.get(this.collection).path(this.path).on(function(data){
-          this.data = data;
-          console.log(this.data)
-          }.bind(this))
+            if(this.data != data){
+              this.data = data;
+              this.sync();
+            }
+          }.bind(this));
         }
       }
-
+      _sync(){
+        if(this.collection && this.path){
+          this.gun = Gun();
+          this.gun.get(this.collection).path(this.path).put(this.data);
+        }
+      }
     } window.customElements.define(PolymerGun.is, PolymerGun);
   </script>
 </dom-module>
