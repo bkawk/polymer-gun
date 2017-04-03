@@ -1,0 +1,46 @@
+<link rel="import" href="../polymer/polymer.html">
+<script src="./bower_components/gun/gun.js"></script>
+
+<!--
+`polymer-gun`
+A Polymer2 web component for GunDB 
+
+Example:
+```
+<polymer-gun 
+  gun="{{gun}}">
+</polymer-gun>
+```
+
+@demo demo/index.html
+-->
+
+<dom-module id="polymer-gun">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+  </template>
+
+  <script>
+    class MyElement extends Polymer.Element {
+      static get is() { return 'polymer-gun'; }
+      static get properties() {
+        return {
+          gun: {
+            type: Object,
+            notify: true
+          }
+        };
+      }
+      connectedCallback(){
+        super.connectedCallback();
+        this.gun = Gun();
+      }
+    }
+
+    window.customElements.define(MyElement.is, MyElement);
+  </script>
+</dom-module>
