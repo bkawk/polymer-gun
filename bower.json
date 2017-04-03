@@ -1,6 +1,5 @@
 {
   "name": "polymer-gun",
-  "description": "A Polymer2 web component for GunDB ",
   "main": "polymer-gun.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0-rc.2",

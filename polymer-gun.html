@@ -1,16 +1,8 @@
 <link rel="import" href="../polymer/polymer.html">
 <script src="./bower_components/gun/gun.js"></script>
-
 <!--
 `polymer-gun`
-A Polymer2 web component for GunDB 
 
-Example:
-```
-<polymer-gun 
-  gun="{{gun}}">
-</polymer-gun>
-```
 
 @demo demo/index.html
 -->
@@ -22,25 +14,54 @@ Example:
         display: block;
       }
     </style>
+    <h2>Hello {{prop1}}</h2>
   </template>
 
   <script>
-    class MyElement extends Polymer.Element {
+    class PolymerGun extends Polymer.Element {
       static get is() { return 'polymer-gun'; }
       static get properties() {
         return {
           gun: {
             type: Object,
             notify: true
+          },
+          url:{
+            type: String,
+            observer: '_sync'
+          },
+          collection:{
+            type: String,
+            value: 'test1/',
+            observer: '_sync'
+          },
+          path:{
+            type: String,
+            value: 'test2/',
+            observer: '_sync'
+          },
+          data:{
+            type: String,
+            observer: '_sync'
           }
+
         };
       }
-      connectedCallback(){
-        super.connectedCallback();
-        this.gun = Gun();
-      }
-    }
 
-    window.customElements.define(MyElement.is, MyElement);
+      _sync(){
+        this.data = new Date().getTime()
+        this.gun = Gun();
+        if(this.collection && this.path){
+          if(this.data){
+            this.gun.get(this.collection).path(this.path).put(this.data);
+          }
+          this.gun.get(this.collection).path(this.path).on(function(data){
+          this.data = data;
+          console.log(this.data)
+          }.bind(this))
+        }
+      }
+
+    } window.customElements.define(PolymerGun.is, PolymerGun);
   </script>
 </dom-module>

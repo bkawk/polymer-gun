@@ -1,6 +1,6 @@
 # \<polymer-gun\>
 
-A Polymer2 web component for GunDB 
+
 
 ## Install the Polymer-CLI
 

@@ -1,24 +1,27 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>polymer-gun demo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>polymer-gun demo</title>
+
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-
     <link rel="import" href="../polymer-gun.html">
+
     <style is="custom-style" include="demo-pages-shared-styles">
     </style>
   </head>
   <body>
-    <div>
+    <div class="vertical-section-container centered">
       <h3>Basic polymer-gun demo</h3>
       <demo-snippet>
-        <template is="dom-bind">
-          <polymer-gun gun="{{gun}}"></polymer-gun>
+        <template>
+          <polymer-gun prop1="{{prop1}}"></polymer-gun>
+          <p>{{prop1}}</p>
         </template>
       </demo-snippet>
     </div>
